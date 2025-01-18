@@ -1,0 +1,47 @@
+{% extends 'service_requests/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>Track Your Request</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="btn btn-primary mt-3">Track Request</button>
+                </form>
+
+                {% if service_request %}
+                    <hr>
+                    <h3>Request Details</h3>
+                    <table class="table">
+                        <tr>
+                            <th>Tracking ID:</th>
+                            <td>{{ service_request.tracking_id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td><span class="badge bg-primary">{{ service_request.status }}</span></td>
+                        </tr>
+                        <tr>
+                            <th>Request Type:</th>
+                            <td>{{ service_request.get_request_type_display }}</td>
+                        </tr>
+                        <tr>
+                            <th>Submitted:</th>
+                            <td>{{ service_request.created_at }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Updated:</th>
+                            <td>{{ service_request.updated_at }}</td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
